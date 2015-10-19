@@ -14,10 +14,10 @@ class IProtocolRequest {
 public:
 	IProtocolRequest();
 	virtual ~IProtocolRequest();
-	unsigned long initRequest();
-	bool isValid();
-	unsigned long addTarget(IProtocolData *pData);
-	IProtocolResponse* fireRequest();
+	virtual unsigned long initRequest() =0;
+	virtual bool isValid() =0;
+	virtual unsigned long addTarget(IProtocolData *pData) =0;
+	virtual IProtocolResponse* fireRequest() =0;
 };
 
 } /* namespace aaa */

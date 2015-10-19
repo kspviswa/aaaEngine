@@ -8,6 +8,13 @@
 #ifndef CENGINE_H_
 #define CENGINE_H_
 
+#include "IProtocolData.h"
+#include "IProtocolRequest.h"
+#include "IProtocolResponse.h"
+
+#include <iostream>
+using namespace std;
+
 namespace aaa {
 
 enum EProtocols {
