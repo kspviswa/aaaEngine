@@ -14,7 +14,8 @@ class IProtocolResponse {
 public:
 	IProtocolResponse();
 	virtual ~IProtocolResponse();
-	IProtocolData* parseResponse();
+	virtual IProtocolData* parseResponse() =0;
+	virtual unsigned long getRadiusResult() =0;
 };
 
 } /* namespace aaa */

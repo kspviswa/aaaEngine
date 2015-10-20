@@ -22,14 +22,16 @@ using namespace std;
 
 namespace aaa {
 
-class CRadiusEngine {
+class CRadiusEngine : public IProtocolRequest, IProtocolResponse{
 public:
 	CRadiusEngine(string strHost, string strSSecret, unsigned long nPort);
 	virtual ~CRadiusEngine();
-	unsigned long initRequest();
-	bool isValid();
-	unsigned long prepareRequest(IProtocolData *pData);
-	IProtocolResponse* fireRequest();
+	virtual unsigned long initRequest();
+	virtual bool isValid();
+	virtual unsigned long prepareRequest(IProtocolData *pData);
+	virtual unsigned long fireRequest();
+	virtual IProtocolData* parseResponse();
+	virtual unsigned long getRadiusResult();
 
 private:
 	void clearAVP();
@@ -37,6 +39,8 @@ private:
 private:
 	RadiusClientStack m_stack;
 	RadiusPacket* m_pPacket;
+	RadiusPacket* m_pPacketResponse;
+
 	CRadProperties m_Conn;
 };
 

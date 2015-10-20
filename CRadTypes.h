@@ -22,6 +22,15 @@ enum RadiusPassType {
 	TYPE_TTLS
 };
 
+enum RadiusResultType {
+	TYPE_ACCEPT,
+	TYPE_CHALLENGE,
+	TYPE_REJECT,
+	TYPE_OK,
+	TYPE_NOK,
+	TYPE_NO_TRANSACTION
+};
+
 class CRadAVP{
 public:
 	RadiusPassType m_eType;

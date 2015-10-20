@@ -17,7 +17,7 @@ public:
 	virtual unsigned long initRequest() =0;
 	virtual bool isValid() =0;
 	virtual unsigned long addTarget(IProtocolData *pData) =0;
-	virtual IProtocolResponse* fireRequest() =0;
+	virtual unsigned long fireRequest() =0;
 };
 
 } /* namespace aaa */
