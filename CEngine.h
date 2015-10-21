@@ -23,11 +23,6 @@ enum EProtocols {
 	TACACS_PLUS_STACK
 };
 
-class IProtocolHandler;
-class IProtocolData;
-class IProtocolRequest;
-class IProtocolResponse;
-
 class CEngine {
 public:
 	CEngine();

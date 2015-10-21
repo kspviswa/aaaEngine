@@ -8,6 +8,8 @@
 #ifndef IPROTOCOLREQUEST_H_
 #define IPROTOCOLREQUEST_H_
 
+#include "IProtocolData.h"
+
 namespace aaa {
 
 class IProtocolRequest {

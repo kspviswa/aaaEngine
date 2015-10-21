@@ -12,6 +12,7 @@
 #include <vector>
 #include <map>
 #include "3rdparty/ace-radius/RadiusClientStack.h"
+#include <sstream>
 
 using namespace std;
 
@@ -20,6 +21,17 @@ enum RadiusPassType {
 	TYPE_MSCHAP,
 	TYPE_TLS,
 	TYPE_TTLS
+};
+
+enum RadDataType {
+	RAD_TYPE_INT,
+	RAD_TYPE_STRING,
+	RAD_TYPE_PASSWORD,
+	RAD_TYPE_CHAP_PASSWORD,
+	RAD_TYPE_VENDOR_SPECIFIC,
+	RAD_TYPE_ADDRESS,
+	RAD_TYPE_HEX,
+	RAD_TYPE_OTHER
 };
 
 enum RadiusResultType {
@@ -33,7 +45,7 @@ enum RadiusResultType {
 
 class CRadAVP{
 public:
-	RadiusPassType m_eType;
+	RadDataType m_eType;
 	unsigned long m_nOrdinal;
 	string m_data;
 };
@@ -49,9 +61,6 @@ typedef vector<CRadAVP> vectAVP;
 
 #define RAD_SUCCESS 0
 #define RAD_FAILURE 1
-
-
-
 
 
 #endif /* CRADTYPES_H_ */

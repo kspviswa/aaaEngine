@@ -5,7 +5,10 @@
  *      Author: kspviswa
  */
 
+#include <iostream>
 #include "CRadiusEngine.h"
+#include "CRadiusData.h"
+#include <string.h>
 
 namespace aaa {
 
@@ -20,7 +23,7 @@ CRadiusEngine::~CRadiusEngine() {
 	// TODO Auto-generated destructor stub
 }
 
-virtual unsigned long CRadiusEngine::initRequest() {
+unsigned long  CRadiusEngine::initRequest() {
 
 	unsigned long nRet = RAD_SUCCESS;
 
@@ -49,17 +52,17 @@ virtual unsigned long CRadiusEngine::initRequest() {
 	return nRet;
 }
 
-virtual bool CRadiusEngine::isValid()
+bool CRadiusEngine::isValid()
 {
 	return this->m_stack.isValid();
 }
 
-virtual unsigned long CRadiusEngine::prepareRequest(IProtocolData *pData)
+unsigned long CRadiusEngine::prepareRequest(IProtocolData *pData)
 {
 	unsigned long nRet = RAD_FAILURE;
 	if(pData)
 	{
-		CRadiusData *p_req = pData;
+		CRadiusData *p_req = dynamic_cast<CRadiusData*>(pData);
 		vectAVP *pAVP = static_cast<vectAVP*>(p_req->getDataDump());
 		if(pAVP)
 		{
@@ -91,7 +94,7 @@ virtual unsigned long CRadiusEngine::prepareRequest(IProtocolData *pData)
 	return nRet;
 }
 
-virtual unsigned long CRadiusEngine::fireRequest()
+unsigned long CRadiusEngine::fireRequest()
 {
 	m_pPacketResponse = this->m_stack.sendPacket(*(this->m_pPacket));
 
@@ -162,21 +165,29 @@ unsigned long formatHelper(unsigned long nAttrID)
 		return TYPE_ADDRESS;
 
 	case D_ATTR_USER_PASSWORD:
-		return ;
+		return TYPE_PASSWORD;
 
 	case D_ATTR_CHAP_PASSWORD:
-		return E_ATTR_FORMAT_CHAP_PASSWORD;
+		return TYPE_CHAP_PASSWORD;
 
 	case D_ATTR_VENDOR_SPECIFIC:
-		return E_ATTR_FORMAT_VENDOR_SPECIFIC;
+		return TYPE_VENDOR_SPECIFIC;
 
+	case D_ATTR_REPLY_MESSAGE:
 	default:
-		return E_ATTR_FORMAT_STRING;
+		return TYPE_STRING;
 	}
 
 }
 
-virtual IProtocolData* CRadiusEngine::parseResponse()
+string to_String(unsigned long nVal)
+{
+	stringstream ss;
+	ss << nVal;
+	return ss.str();
+}
+
+IProtocolData* CRadiusEngine::parseResponse()
 {
 	if(this->m_pPacketResponse)
 	{
@@ -188,34 +199,68 @@ virtual IProtocolData* CRadiusEngine::parseResponse()
 
 			while(l_attr.isValid())
 			{
-				p_Res->setData(l_attr.getType(), l_attr.get)
-				this->m_pPacketResponse->getFirstAttribute(l_attr);
+				switch(l_attr.getType())
+				{
+				case TYPE_INT:
+					p_Res->setData(TYPE_INT, (unsigned long)l_attr.getType(),
+							to_String(l_attr.getNumber()));
+					break;
+				case TYPE_ADDRESS:
+					char szIP[50];
+					struct in_addr addr;
+					addr = l_attr.getIPAddress();
+					inet_aton(szIP, &addr);
+					p_Res->setData(TYPE_ADDRESS, (unsigned long)l_attr.getType(),
+							string(szIP, strlen(szIP)));
+					break;
+				case TYPE_STRING:
+					const char *pszStr;
+					//string str = "";
+					unsigned short int nLen;
+					l_attr.getString(pszStr, nLen);
+					string str(pszStr, nLen);
+
+					p_Res->setData(TYPE_STRING, (unsigned long)l_attr.getType(),str);
+					break;
+				}
+				this->m_pPacketResponse->getNextAttribute(l_attr);
 			}
+
+			return dynamic_cast<IProtocolData*>(this);
 		}
 	}
 
+	return NULL;
+
 }
 
-virtual unsigned long CRadiusEngine::getRadiusResult()
+unsigned long CRadiusEngine::getRadiusResult()
 {
 	RadiusResultType nRet = TYPE_NO_TRANSACTION;
 	if(this->m_pPacketResponse)
 	{
 		string sResult = this->m_pPacketResponse->getCodeDescription();
-		switch(sResult)
+
+		if(sResult == "Access-Accept")
 		{
-		case "Access-Accept":
 			nRet = TYPE_ACCEPT;
-			break;
-		case "Access-Reject":
-			nRet = TYPE_REJECT;
-			break;
-		case "Access-Challenge":
-			nRet = TYPE_CHALLENGE;
-			break;
-		default:
 		}
+		else if(sResult == "Access-Reject")
+		{
+			nRet = TYPE_REJECT;
+		}
+		else if(sResult == "Access-Challenge")
+		{
+			nRet = TYPE_CHALLENGE;
+		}
+		else
+		{
+			nRet = TYPE_NO_TRANSACTION;
+		}
+
 	}
+
+	return (unsigned long)nRet;
 
 }
 
