@@ -28,9 +28,9 @@ class CRadiusData: public IProtocolData {
 public:
 	CRadiusData();
 	virtual ~CRadiusData();
-	unsigned long setData(EProtocolDataType eType, unsigned long nID, string rawData);
-	void* getDataDump();
-
+	virtual unsigned long setData(EProtocolDataType eType, unsigned long nID, string rawData);
+	virtual void* getDataDump();
+	virtual unsigned long setDataEx(EProtocolDataType eType, string attr, string value);
 private:
 	vectAVP m_AVP;
 };

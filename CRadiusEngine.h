@@ -24,14 +24,14 @@ namespace aaa {
 
 class CRadiusEngine : public IProtocolRequest, IProtocolResponse{
 public:
-	CRadiusEngine(string strHost, string strSSecret, unsigned long nPort);
+	CRadiusEngine();
 	virtual ~CRadiusEngine();
-	virtual unsigned long initRequest();
+	virtual unsigned long initRequest(CProperties iConn);
 	virtual bool isValid();
 	virtual unsigned long prepareRequest(IProtocolData *pData);
 	virtual unsigned long fireRequest();
 	virtual IProtocolData* parseResponse();
-	virtual unsigned long getRadiusResult();
+	virtual long getResult();
 
 private:
 	void clearAVP();

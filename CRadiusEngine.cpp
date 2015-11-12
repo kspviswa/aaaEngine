@@ -12,20 +12,22 @@
 
 namespace aaa {
 
-CRadiusEngine::CRadiusEngine(string strHost, string strSSecret, unsigned long nPort) {
+CRadiusEngine::CRadiusEngine() {
 	// TODO Auto-generated constructor stub
-	this->m_Conn.m_nPort = nPort;
-	this->m_Conn.m_sSharedSecret = strSSecret;
-	this->m_Conn.m_sTarget = strHost;
+
 }
 
 CRadiusEngine::~CRadiusEngine() {
 	// TODO Auto-generated destructor stub
 }
 
-unsigned long  CRadiusEngine::initRequest() {
+unsigned long  CRadiusEngine::initRequest(CProperties iConn) {
 
 	unsigned long nRet = RAD_SUCCESS;
+
+	this->m_Conn.m_nPort = iConn.nPort;
+	this->m_Conn.m_sSharedSecret = iConn.sKey;
+	this->m_Conn.m_sTarget = iConn.sHost;
 
 	if (!this->m_stack.isValid())
 	{
@@ -234,7 +236,7 @@ IProtocolData* CRadiusEngine::parseResponse()
 
 }
 
-unsigned long CRadiusEngine::getRadiusResult()
+long CRadiusEngine::getResult()
 {
 	RadiusResultType nRet = TYPE_NO_TRANSACTION;
 	if(this->m_pPacketResponse)
@@ -260,7 +262,7 @@ unsigned long CRadiusEngine::getRadiusResult()
 
 	}
 
-	return (unsigned long)nRet;
+	return (long)nRet;
 
 }
 
