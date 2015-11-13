@@ -15,7 +15,7 @@
 
 namespace aaa {
 
-class CTacacsPPEngine: public IProtocolData,
+class CTacacsPPEngine:
 		public IProtocolRequest,
 		public IProtocolResponse {
 public:

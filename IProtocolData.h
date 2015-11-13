@@ -27,7 +27,8 @@ enum EProtocolDataType {
 enum EProtocols {
 	RADIUS_STACK,
 	TACACS_STACK,
-	TACACS_PLUS_STACK
+	TACACS_PLUS_STACK,
+	UNKNOWN_STACK
 };
 
 class CProperties
