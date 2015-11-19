@@ -13,26 +13,33 @@
 #include "IProtocolResponse.h"
 
 #include <iostream>
+#include <map>
 using namespace std;
 
 namespace aaa {
 
-class CEngine : public IProtocolRequest, IProtocolResponse {
+typedef map<string, string> mAVP;
+
+class CEngine {
 
 public:
 	CEngine();
 	virtual ~CEngine();
-	virtual unsigned long initRequest(CProperties iConn);
-	virtual bool isValid();
-	virtual unsigned long prepareRequest(IProtocolData *pData);
-	virtual unsigned long fireRequest();
-	virtual IProtocolData* parseResponse();
-	virtual long getResult();
 	void setProtocolType(int nType);
+	unsigned long initRequest(CProperties iConn);
+	void setData(string sAttribute, string sValue);
+	unsigned long prepareAndFireRequest();
+	mAVP handleResponse();
+	unsigned long getResult();
 
 private:
 	EProtocols eType;
+	mAVP m_AVP;
 };
+
+
+#define PROT_SUCCESS 0
+#define PROT_FAILURE 1
 
 } /* namespace aaa */
 

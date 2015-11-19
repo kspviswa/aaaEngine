@@ -27,10 +27,16 @@ unsigned long CRadiusData::setData(aaa::EProtocolDataType eType, unsigned long n
 	l_avp.m_nOrdinal = nID;
 
 	this->m_AVP.push_back(l_avp);
+	return RAD_SUCCESS;
+}
+unsigned long CRadiusData::setDataEx(EProtocolDataType eType, string attr, string value)
+{
+	// Dummy function - just to satisfy the virtual constraint.
+	return RAD_SUCCESS;
 }
 
 void* CRadiusData:: getDataDump() {
-	return (void*)this->m_AVP.data();
+	return (void*)&this->m_AVP;
 }
 
 } /* namespace aaa */

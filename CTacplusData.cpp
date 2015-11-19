@@ -22,6 +22,13 @@ CTacplusData::~CTacplusData() {
 unsigned long CTacplusData::setDataEx(EProtocolDataType eType, string attr, string value)
 {
 	this->m_avp.insert(make_pair(attr, value));
+	return TAC_SUCCESS;
+}
+
+unsigned long CTacplusData::setData(EProtocolDataType eType, unsigned long nID, string rawData)
+{
+	// Dummy function - just to satisfy the virtual constraint.
+	return TAC_SUCCESS;
 }
 
 void* CTacplusData::getDataDump()

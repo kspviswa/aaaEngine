@@ -30,6 +30,7 @@ public:
 	void setData(string sAttribute, string sValue);
 	unsigned long prepareAndFireRequest();
 	mAVP handleResponse();
+	unsigned long getResult();
 
 private:
 	EProtocols eType;

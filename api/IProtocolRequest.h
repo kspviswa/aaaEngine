@@ -16,7 +16,7 @@ class IProtocolRequest {
 public:
 	IProtocolRequest();
 	virtual ~IProtocolRequest();
-	virtual unsigned long initRequest(EProtocols eType, CProperties iConn) =0;
+	virtual unsigned long initRequest(CProperties iConn) =0;
 	virtual bool isValid() =0;
 	virtual unsigned long fireRequest() =0;
 };

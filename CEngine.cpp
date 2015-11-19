@@ -28,6 +28,15 @@ this->eType = UNKNOWN_STACK;
 
 CEngine::~CEngine() {
 	// TODO Auto-generated destructor stub
+	if(pRadEngine)
+	{
+		free(pRadEngine);
+	}
+
+	if(pTacEngine)
+	{
+		free(pTacEngine);
+	}
 }
 
 unsigned long CEngine::initRequest(CProperties iConn)
@@ -81,7 +90,7 @@ unsigned long CEngine::prepareAndFireRequest()
 			}
 			else if(iter->first == "User-Password")
 			{
-				nOrdinal = D_ATTR_USER_NAME;
+				nOrdinal = D_ATTR_USER_PASSWORD;
 				nFormat = TYPE_STRING;
 			}
 			else
@@ -143,7 +152,77 @@ mAVP CEngine::handleResponse()
 {
 	mAVP oAVP;
 
+	switch(this->eType)
+	{
+	case TACACS_PLUS_STACK:
+	{
+		if(pTacEngine->getResult() == TAC_SUCCESS)
+		{
+			IProtocolData *pData = pTacEngine->parseResponse();
+			while(pData)
+			{
+				tacAVP *pAVP = static_cast<tacAVP*>(pData->getDataDump());
+				tacAVP::iterator iter;
+				for(iter = pAVP->begin(); iter != pAVP->end(); iter++)
+				{
+					oAVP.insert(make_pair(iter->first, iter->second));
+				}
+
+				free(pData);
+			}
+		}
+	}
+	break;
+	case RADIUS_STACK:
+	{
+		if(pRadEngine->getResult() == TYPE_ACCEPT)
+		{
+			IProtocolData *pData = pRadEngine->parseResponse();
+			while(pData)
+			{
+				vectAVP *pAVP = static_cast<vectAVP*>(pData->getDataDump());
+				vectAVP::iterator iter;
+				for(iter = pAVP->begin(); iter != pAVP->end(); iter++)
+				{
+					oAVP.insert(make_pair("",iter->m_data));
+				}
+
+				free(pData);
+			}
+		}
+	}
+	break;
+	default:
+		break;
+	}
 	return oAVP;
+}
+
+unsigned long CEngine::getResult()
+{
+	switch(this->eType)
+	{
+	case TACACS_PLUS_STACK:
+	{
+		if(pTacEngine && pTacEngine->getResult() == TAC_SUCCESS)
+		{
+			return PROT_SUCCESS;
+		}
+	}
+	break;
+	case RADIUS_STACK:
+	{
+		if(pRadEngine && pRadEngine->getResult() == TYPE_ACCEPT)
+		{
+			return PROT_SUCCESS;
+		}
+	}
+	break;
+	default:
+		break;
+	}
+
+	return PROT_FAILURE;
 }
 
 } /* namespace aaa */

@@ -17,6 +17,7 @@ CTacacsPPEngine::CTacacsPPEngine() {
 
 CTacacsPPEngine::~CTacacsPPEngine() {
 	// TODO Auto-generated destructor stub
+	close(this->m_Conn.tac_fd);
 }
 
 unsigned long CTacacsPPEngine::initRequest(CProperties iConn)
@@ -115,6 +116,12 @@ unsigned long CTacacsPPEngine::fireRequest()
 	 {
 		 nResult = TAC_SUCCESS;
 
+		 // Check only if authentication is needed
+		 if(this->m_bValid && !this->attr)
+		 {
+			 this->arep.status = AUTHOR_STATUS_PASS_ADD;
+			 return nResult;
+		 }
 		 // Proceed with autorization
 
 		 tac_reply = tac_author_send(this->m_Conn.tac_fd, this->m_Conn.m_sUser.c_str(),
@@ -196,7 +203,15 @@ IProtocolData* CTacacsPPEngine::parseResponse()
 
 long CTacacsPPEngine::getResult()
 {
-	return this->arep.status;
+	if(this->arep.status != AUTHOR_STATUS_PASS_ADD &&
+			this->arep.status != AUTHOR_STATUS_PASS_REPL)
+	{
+		return TAC_FAILURE;
+	}
+	else
+	{
+		return TAC_SUCCESS;
+	}
 }
 
 } /* namespace aaa */
