@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>aaaEngine by kspviswa</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-dark.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/main.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+
+      <header>
+        <h1>aaaEngine</h1>
+        <p>Compact all-in-one AAA engine supporting most popular AAA protocols ( RADIUS / TACACS+ )</p>
+      </header>
+
+      <div id="banner">
+        <span id="logo"></span>
+
+        <a href="https://github.com/kspviswa/aaaEngine" class="button fork"><strong>View On GitHub</strong></a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/kspviswa/aaaEngine/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/kspviswa/aaaEngine/tarball/master" class="button">TAR</a></li>
+          </ul>
+        </div>
+      </div><!-- end banner -->
+
+    <div class="wrapper">
+      <nav>
+        <ul></ul>
+      </nav>
+      <section>
+        <h1>
+<a id="aaaengine" class="anchor" href="#aaaengine" aria-hidden="true"><span class="octicon octicon-link"></span></a>aaaEngine</h1>
+
+<p>Compact all-in-one AAA engine supporting most popular AAA protocols ( RADIUS / TACACS+ ) and has ambitious plans to add more protocols in future. 
+<code>aaaEngine</code> can be used to model any AAA client. As of now, the engine supports single-thread, request-response based architecture, which is well suited for AAA client needs. In future, server stack will be implemented to support both client &amp; server stacks.</p>
+
+<h2>
+<a id="features" class="anchor" href="#features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Features</h2>
+
+<ul>
+<li>
+<strong>Sleek API</strong> - All you need is the library &amp; include files. Only 4 APIs are needed for complete operation. It is irrespective of the underlying AAA protocol. Please refer to <a href="https://github.com/kspviswa/aaaEngine/wiki/How-to-build-the-library-using-eclipse-cdt">how to build a client page</a> for more details.</li>
+<li>
+<strong>Scalable Design</strong> - Lot of efforts had been put into the design of <code>aaaEngine</code> to make it scalable and complete. It would take less amount of effort to introduce / depreciate a AAA protocol, without affecting the entire API design itself.</li>
+<li>
+<strong>Ambitious plans</strong> - <code>aaaEngine</code> project has been started recently. It was born out of frustration of not having a consolidated aaa stack for client purposes. Though started with minimum scope, the project has got ambitious plans for the future. Please refer the <a href="https://github.com/kspviswa/aaaEngine/labels/enhancement">enhancements</a> lined up for this project.</li>
+<li>
+<strong>Pure Opensource</strong> - This project is released under <a href="https://opensource.org/licenses/MIT">MIT license</a> which makes ideal for commercial &amp; opensource usage.</li>
+</ul>
+
+<h2>
+<a id="how-to-build" class="anchor" href="#how-to-build" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to build</h2>
+
+<p><code>aaaEngine</code> project does not contain the <code>Makefile</code> or <em>pre-compiled</em> libraries. Instead it gives you freedom to use the source at your will under any existing build ecos-system. If you are ardent fan of <code>eclipse-cdt</code> ( like me ), then please refer to  <a href="https://github.com/kspviswa/aaaEngine/wiki/How-to-build-the-library-using-eclipse-cdt">how to build a client page</a> for more details.</p>
+
+<h2>
+<a id="dependencies" class="anchor" href="#dependencies" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dependencies</h2>
+
+<ul>
+<li>
+<a href="http://sourceforge.net/projects/ace-radius/?source=typ_redirect">ace-radius</a> for RADIUS client stack</li>
+<li>
+<a href="https://github.com/kspviswa/pam_tacplus">pam_tacplus</a> for TACACS+ client stack</li>
+</ul>
+
+<h2>
+<a id="how-to-contribute" class="anchor" href="#how-to-contribute" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to contribute</h2>
+
+<p><code>aaaEngine</code> is an opensource project. Like anyother project, this project too needs community support. See the contibutors page filled with names, apart from my name, makes me immensely happy and satisfactory, giving me a sense that, I had contributed something to ever enriching opensource community, which groomed me to what I'm today. </p>
+
+<p>If you like the project's vision and wish to contribute to the project, here is the work.</p>
+
+<ul>
+<li>Fork your own copy of the project repo.</li>
+<li>Look for the <a href="https://github.com/kspviswa/aaaEngine/labels/enhancement">enhancements</a> that you would be interested in and pick it up.</li>
+<li>Comment on the <a href="https://github.com/kspviswa/aaaEngine/labels/enhancement">enhancement</a> issue and express your interest / willingness to work on the issue and get it assigned to your name. This will help me organize the work.</li>
+<li>Work on the enhancement, discuss with me ( a forum will be arranged if I see the project is picking up ) and finalize the changes.</li>
+<li>Commit the changes to your repo and raise a pull request, requesting a merge to the master of project repo. I shall review the changes and accept the merge, if deemed fit.</li>
+<li>If you come across any issue, prepare a test case, collect necessary logs / screenshot of the error etc and create an issue.</li>
+</ul>
+
+<p>If you want to support the project by donating some bounty / bitcoin please contact me @ <a href="mailto:coolviswa86@gmail.com">coolviswa86@gmail.com</a></p>
+
+<p><strong>Note</strong> :</p>
+
+<p>The source of <a href="http://sourceforge.net/projects/ace-radius/?source=typ_redirect">ace-radius</a> &amp; some part of client source of <a href="https://github.com/kspviswa/pam_tacplus">tacplus</a> have been directly used in the project. So <em>aaaEngine</em> will literally glue both RADIUS &amp; TACACS+ client stack together. The source of OSS have been directly used and this project has been released under <a href="https://opensource.org/licenses/MIT">MIT license</a>.</p>
+
+<p>Copyright © 2015 kspviswa | Released under Licensed under MIT Opensource License</p>
+      </section>
+      <footer>
+        <p>Project maintained by <a href="https://github.com/kspviswa">kspviswa</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
