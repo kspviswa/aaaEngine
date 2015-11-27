@@ -81,6 +81,7 @@ unsigned long CTacacsPPEngine::initRequest(CProperties iConn)
 		nResult = TAC_FAILURE;
 	}
 	this->m_bValid = true;
+	this->attr = NULL;
 	return nResult;
 }
 

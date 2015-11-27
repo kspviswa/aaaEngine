@@ -224,7 +224,7 @@ IProtocolData* CRadiusEngine::parseResponse()
 
 			while(l_attr.isValid())
 			{
-				switch(l_attr.getType())
+				switch(formatHelper(l_attr.getType()))
 				{
 				case TYPE_INT:
 					p_Res->setData(TYPE_INT, (unsigned long)l_attr.getType(),
@@ -251,7 +251,7 @@ IProtocolData* CRadiusEngine::parseResponse()
 				this->m_pPacketResponse->getNextAttribute(l_attr);
 			}
 
-			return dynamic_cast<IProtocolData*>(this);
+			return dynamic_cast<IProtocolData*>(p_Res);
 		}
 	}
 

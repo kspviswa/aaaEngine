@@ -51,15 +51,29 @@ this->eType = UNKNOWN_STACK;
 
 CEngine::~CEngine() {
 	// TODO Auto-generated destructor stub
-	if(pRadEngine)
+
+	switch (this->eType)
 	{
-		free(pRadEngine);
+	case RADIUS_STACK:
+		delete pRadEngine;
+		break;
+	case TACACS_PLUS_STACK:
+		delete pTacEngine;
+		break;
+	default:
+		break;
+	}
+
+	/*	if(pRadEngine)
+	{
+		delete pRadEngine;
 	}
 
 	if(pTacEngine)
 	{
-		free(pTacEngine);
+		delete pTacEngine;
 	}
+	 */
 }
 
 unsigned long CEngine::initRequest(CProperties iConn)
@@ -182,7 +196,7 @@ mAVP CEngine::handleResponse()
 		if(pTacEngine->getResult() == TAC_SUCCESS)
 		{
 			IProtocolData *pData = pTacEngine->parseResponse();
-			while(pData)
+			if(pData)
 			{
 				tacAVP *pAVP = static_cast<tacAVP*>(pData->getDataDump());
 				tacAVP::iterator iter;
@@ -191,7 +205,7 @@ mAVP CEngine::handleResponse()
 					oAVP.insert(make_pair(iter->first, iter->second));
 				}
 
-				free(pData);
+				delete pData;
 			}
 		}
 	}
@@ -201,16 +215,21 @@ mAVP CEngine::handleResponse()
 		if(pRadEngine->getResult() == TYPE_ACCEPT)
 		{
 			IProtocolData *pData = pRadEngine->parseResponse();
-			while(pData)
+			if(pData)
 			{
 				vectAVP *pAVP = static_cast<vectAVP*>(pData->getDataDump());
 				vectAVP::iterator iter;
-				for(iter = pAVP->begin(); iter != pAVP->end(); iter++)
+				for(iter = pAVP->begin(); iter != pAVP->end(); ++iter)
 				{
-					oAVP.insert(make_pair("",iter->m_data));
+					string sAttr = "";
+					if(iter->m_nOrdinal == D_ATTR_REPLY_MESSAGE)
+					{
+						sAttr = "Reply-Message";
+					}
+					oAVP.insert(make_pair(sAttr,iter->m_data));
 				}
 
-				free(pData);
+				delete pData;
 			}
 		}
 	}
