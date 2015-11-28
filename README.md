@@ -12,8 +12,10 @@ Compact all-in-one AAA engine supporting most popular AAA protocols ( RADIUS / T
 `aaaEngine` project does not contain the `Makefile` or *pre-compiled* libraries. Instead it gives you freedom to use the source at your will under any existing build ecos-system. If you are ardent fan of `eclipse-cdt` ( like me ), then please refer to  [how to build a client page](https://github.com/kspviswa/aaaEngine/wiki/How-to-build-the-library-using-eclipse-cdt) for more details.
 
 ## Dependencies
-* [ace-radius](http://sourceforge.net/projects/ace-radius/?source=typ_redirect) for RADIUS client stack
-* [pam_tacplus](https://github.com/kspviswa/pam_tacplus) for TACACS+ client stack
+* [ace-radius](http://sourceforge.net/projects/ace-radius/?source=typ_redirect) for RADIUS client stack.
+ * ace-radius released under [BSD-License](http://www.opensource.org/licenses/bsd-license.php).
+* [pam_tacplus](https://github.com/kspviswa/pam_tacplus) for TACACS+ client stack.
+ * pam_tacplus released under [GPL v2](https://github.com/kspviswa/pam_tacplus/blob/master/COPYING).
 
 ## How to contribute
 `aaaEngine` is an opensource project. Like anyother project, this project too needs community support. See the contibutors page filled with names, apart from my name, makes me immensely happy and satisfactory, giving me a sense that, I had contributed something to ever enriching opensource community, which groomed me to what I'm today. 
@@ -30,7 +32,7 @@ If you want to support the project by donating some bounty / bitcoin please cont
 
 **Note** :
 
-The source of [ace-radius](http://sourceforge.net/projects/ace-radius/?source=typ_redirect) & some part of client source of [tacplus] (https://github.com/kspviswa/pam_tacplus) have been directly used in the project. So *aaaEngine* will literally glue both RADIUS & TACACS+ client stack together. The source of OSS have been directly used and this project has been released under [MIT license] (https://opensource.org/licenses/MIT).
+The source of [ace-radius](http://sourceforge.net/projects/ace-radius/?source=typ_redirect) & some part of client source of [tacplus] (https://github.com/kspviswa/pam_tacplus) have been directly used in the project. Their respective licenses are available in respective source headers. Please refer to *COPYING* file under `3rdparty/ace-radius` & `3rdparty/tac_plus` directories. The *aaaEngine* will literally glue both RADIUS & TACACS+ client stack together. The source of OSS have been directly used and this project has been released under [MIT license] (https://opensource.org/licenses/MIT).
 
 
 Copyright © 2015 kspviswa | Released under Licensed under MIT Opensource License
