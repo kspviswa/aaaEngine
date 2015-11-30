@@ -33,6 +33,8 @@
 #include "CRadiusData.h"
 #include <string.h>
 
+ #define D_MAX_PASSWORD_LENGTH 256 // Update if required.
+
 namespace aaa {
 
 CRadiusEngine::CRadiusEngine() {
@@ -107,6 +109,26 @@ unsigned long CRadiusEngine::prepareRequest(IProtocolData *pData)
 					this->m_pPacket->addAttribute(D_ATTR_USER_PASSWORD, l_attr);
 					l_attr.setUserPassword(itVectAVP->m_data.c_str());
 					break;
+				case D_ATTR_CHAP_PASSWORD:
+				{
+					unsigned char l_md5Buf[D_MAX_PASSWORD_LENGTH + 17];
+					unsigned char l_chapIdentifier = this->m_pPacket->getID();
+					const char* l_password = itVectAVP->m_data.c_str();
+					unsigned char l_chapResponse[16];
+
+					l_md5Buf[0] = l_chapIdentifier;
+					memcpy(l_md5Buf + 1, l_password, strlen(l_password));
+					memcpy(l_md5Buf + 1 + strlen(l_password), this->m_pPacket->getAuthenticator(), 16); // we use a random packet authenticator as "CHAP challenge"
+
+					// calculate MD5 hash of the built buffer - it's CHAP response
+
+					MD5Calc(l_chapResponse, l_md5Buf, strlen(l_password)+17);
+
+					this->m_pPacket->addAttribute(D_ATTR_CHAP_PASSWORD, l_attr);
+					l_attr.setChapIdentifier(l_chapIdentifier);
+					l_attr.setChapString((const char*)l_chapResponse, 16);
+				}
+				break;
 				default:
 					cout << "Not Implemented" << endl;
 

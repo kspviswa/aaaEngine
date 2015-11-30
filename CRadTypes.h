@@ -35,6 +35,7 @@
 #include <vector>
 #include <map>
 #include "3rdparty/ace-radius/RadiusClientStack.h"
+#include "3rdparty/ace-radius/md5.h"
 #include <sstream>
 
 using namespace std;

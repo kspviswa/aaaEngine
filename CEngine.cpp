@@ -130,6 +130,11 @@ unsigned long CEngine::prepareAndFireRequest()
 				nOrdinal = D_ATTR_USER_PASSWORD;
 				nFormat = TYPE_STRING;
 			}
+			else if(iter->first == "CHAP-Password")
+			{
+				nOrdinal = D_ATTR_CHAP_PASSWORD;
+				nFormat = TYPE_STRING;
+			}
 			else
 			{
 				//ToDo Other Rad types and Vendor Specific type support should go here.
