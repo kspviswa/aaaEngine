@@ -105,6 +105,10 @@ RadiusPacket * RadiusClientConnection::sendPacket(RadiusPacket & p_packet)
         // re-build User-Password and Old-Password attributes
         p_packet.encodeUserPassword();
 
+        /** kspviswa - Added as part of aaaEngine project **/
+        // Just before sending the packet, compute & add "Message-Authenticator"
+
+
         // send request packet
         l_address.sin_family = AF_INET;
         l_address.sin_port = htons(m_serverAddress.getPort());
