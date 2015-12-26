@@ -28,7 +28,7 @@ If you like the project's vision and wish to contribute to the project, here is 
 * Commit the changes to your repo and raise a pull request, requesting a merge to the master of project repo. I shall review the changes and accept the merge, if deemed fit.
 * If you come across any issue, prepare a test case, collect necessary logs / screenshot of the error etc and create an issue.
 
-If you want to support the project by donating some bounty / bitcoin please contact me @ coolviswa86@gmail.com
+If you want to support the project by donating some bounty / bitcoin please contact me @ kspviswa.github@gmail.com
 
 **Note** :
 
